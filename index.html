@@ -569,11 +569,26 @@
           <div>
             <label class="block text-sm font-bold text-primary mb-2 text-start" for="wa-health" data-i18n="lbl_health">هل تعاني من أي مشاكل صحية؟</label>
             <select id="wa-health" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-transparent focus:ring-2 focus:ring-gold outline-none bg-white/80 text-dark text-start transition-all duration-300 cursor-pointer">
-              <option value="" disabled selected data-i18n="opt_health_0">اختر الحالة...</option>
-              <option value="opt_health_1" data-i18n="opt_health_1">لا، صحتي جيدة والحمد لله</option>
-              <option value="opt_health_2" data-i18n="opt_health_2">مقاومة إنسولين / سكري</option>
-              <option value="opt_health_3" data-i18n="opt_health_3">دهون على الكبد</option>
-              <option value="opt_health_4" data-i18n="opt_health_4">أمراض أخرى</option>
+              <option value="" disabled selected>اختر الحالة...</option>
+              <option value="1">لا أعاني من أي مشكلة صحية</option>
+              <option value="2">السكري</option>
+              <option value="3">مقاومة الإنسولين</option>
+              <option value="4">دهون على الكبد</option>
+              <option value="5">أتناول أدوية بشكل مستمر</option>
+              <option value="6">أخرى</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-bold text-primary mb-2 text-start" for="wa-mainReason">ما هو السبب الرئيسي الذي دفعك للتواصل معنا اليوم؟</label>
+            <select id="wa-mainReason" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-transparent focus:ring-2 focus:ring-gold outline-none bg-white/80 text-dark text-start transition-all duration-300 cursor-pointer">
+              <option value="" disabled selected>اختر السبب الرئيسي...</option>
+              <option value="1">أريد خسارة الوزن</option>
+              <option value="2">أريد تحسين صحتي بشكل عام</option>
+              <option value="3">أريد تحسين شكلي وثقتي بنفسي</option>
+              <option value="4">أشعر بالخمول وقلة الطاقة</option>
+              <option value="5">نصحني الطبيب بالبدء</option>
+              <option value="6">شاهدت نتائج أحد العملاء</option>
+              <option value="7">سبب آخر</option>
             </select>
           </div>
           <button type="submit" class="w-full bg-gradient-to-r from-[#25D366] to-[#1ebd5a] hover:from-[#1ebd5a] hover:to-[#128C7E] text-white font-bold text-xl py-5 rounded-xl shadow-[0_10px_20px_rgba(37,211,102,0.3)] hover:shadow-[0_15px_30px_rgba(37,211,102,0.4)] transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mt-8 relative overflow-hidden group">
@@ -719,7 +734,7 @@
         cta_desc: "لا تؤجل صحتك. كل يوم يمر هو فرصة ضائعة لتشعر بطاقة أكبر وصحة أفضل. فريقنا بانتظارك.",
         cta_btn: "تواصل معنا الآن",
         footer_rights: "© 2026 غذاء وعافية. جميع الحقوق محفوظة.",
-        wa_template: `مرحباً فريق غذاء وعافية، أريد تقييم حالتي للانضمام للبرنامج.\nالبيانات:\n👤 الاسم: {name}\n📅 العمر: {age} سنة\n📍 المدينة: {city}\n⚖️ الوزن: {weight} كجم\n🎯 الهدف: {goal}\n🩺 الحالة الصحية: {health}\nأنتظر ردكم، شكراً.`
+        wa_template: `مرحباً فريق غذاء وعافية،\n\nأريد تقييم حالتي للانضمام للبرنامج.\n\n👤 الاسم:\n{name}\n\n📅 العمر:\n{age} سنة\n\n📍 المدينة:\n{city}\n\n⚖️ الوزن:\n{weight} كجم\n\n🎯 الهدف:\n{goal}\n\n🩺 الحالة الصحية:\n{health}\n\n⭐ سبب التواصل:\n{mainReason}\n\nأنتظر ردكم،\n\nشكراً.`
       },
       en: {
         page_title: "Food & Wellness | Regain Your Health & Confidence",
@@ -1056,6 +1071,9 @@
       const healthEl = document.getElementById('wa-health');
       const health = healthEl.options[healthEl.selectedIndex].text;
 
+      const mainReasonEl = document.getElementById('wa-mainReason');
+      const mainReason = mainReasonEl.options[mainReasonEl.selectedIndex].text;
+
       // Get translation template
       let messageTemplate = translations[currentLang].wa_template;
       
@@ -1066,7 +1084,8 @@
         .replace('{city}', city)
         .replace('{weight}', weight)
         .replace('{goal}', goal)
-        .replace('{health}', health);
+        .replace('{health}', health)
+        .replace('{mainReason}', mainReason);
 
       const phoneNumber = '971547166664';
       const url = 'https://wa.me/' + phoneNumber + '?text=' + encodeURIComponent(message);
